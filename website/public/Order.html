@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+    <head>
+         <!-- Required meta tags for BootStrap-->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+        <title>Order List</title>
+        <link rel="stylesheet" type="text/css" href="CSS/index.css">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="icon" href="img/icon.png">
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            /*only the body of the table will be highlighted when hover*/
+            tr:hover {background-color:#f5f5f5;}
+            /*the even table is different color*/
+            tr:nth-child(even) {background-color: #f2f2f2;}
+            /*The header background is green and text is black*/
+            thead {
+                background-color: #4CAF50;
+                color: black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="mainDiv" align "left">
+        <h1>All Order</h1>
+            <div id="nav">
+                <ul>
+                    <li><a href="inventoryInput.html"> Insert Inventory</a></li>
+                    <li><a href="second.html">Inventory</a></li>
+                    <li><a href="insertOrder.html">Insert Order</a></li>
+                    <li><a href="Order.html">Order</a></li>
+                    <li><a href="transfer.html">Transfer Data</a></li>
+                    <button id="logoutButton" onClick="logout()">Logout</button>
+                </ul>
+            </div>
+            <!--newlyadded-->
+            <div id="nav2">
+                <ul>
+                    <li><a href="insertOrder.html">Insert Order</a></li>
+                    <li><a href="Order.html">Order</a></li>
+                    <button id="logoutButton" onClick="logout()">Logout</button>
+                </ul>
+            </div>
+            <p id="authEmail"></p>
+            <!--newlyadded-->
+            </div>
+
+            <!--<p id="authEmails">Welcome to the login</p>-->
+
+             <div>
+                <table id="OrderTable" class = "table">
+
+                    <thead>
+                        <tr>
+                            <th onClick="sortTable(0)">Rep</th>
+                            <th onClick="sortTable(1)">Date Order</th>
+                            <th onClick="sortTable(2)">Product</th>
+                            <th onClick="sortTable(3)">Serial Number</th>
+                            <th onClick="sortTable(4)">Customer Name</th>
+                            <th onClick="sortTable(5)">Zip Code</th>
+                            <th onClick="sortTable(6)">Territory</th>
+                            <th onClick="sortTable(7)">Equipment Cost</th>
+                            <th onClick="sortTable(8)">RSDU</th>
+                            <th onClick="sortTable(9)">Analyst Cost</th>
+                            <th onClick="sortTable(10)">Xerox Invoice Cost</th>
+                            <th onClick="sortTable(11)">CSI Cost</th>
+                            <th onClick="sortTable(12)">Resale Price</th>
+                            <th onClick="sortTable(13)">Buyout Evolve</th>
+                            <th onClick="sortTable(14)">Funding Amount</th>
+                            <th onClick="sortTable(15)">Performance(Revenue)</th>
+                            <th onClick="sortTable(16)">Gross Profit</th>
+                            <th onClick="sortTable(17)">Profit Margin</th>
+                            <th onClick="sortTable(18)">GP Bump</th>
+                            <th onClick="sortTable(19)">Customer Payment</th>
+                            <th onClick="sortTable(20)">Invoice#</th>
+                        </tr>
+                    </thead>
+                         <tr>
+                            <td><input type="text" id="orderSearch0" onkeyup="OrdSearch(0)" placeholder="Search for names.."></td>
+                            <td><input type="text" id="orderSearch1" onkeyup="OrdSearch(1)" placeholder="Search for date.."></td>
+                            <td><input type="text" id="orderSearch2" onkeyup="OrdSearch(2)" placeholder="Search for product.."></td>
+                            <td><input type="text" id="orderSearch3" onkeyup="OrdSearch(3)" placeholder="Search for serial number..."></td>
+                            <td><input type="text" id="orderSearch4" onkeyup="OrdSearch(4)" placeholder="Search for customer.."></td>
+                            <td><input type="text" id="orderSearch5" onkeyup="OrdSearch(5)" placeholder="Search for zip.."></td>
+                            <td><input type="text" id="orderSearch6" onkeyup="OrdSearch(6)" placeholder="Search for territory.."></td>
+                            <td><input type="text" id="orderSearch7" onkeyup="OrdSearch(7)" placeholder="Search for equipment cost.."></td>
+                            <td><input type="text" id="orderSearch8" onkeyup="OrdSearch(8)" placeholder="Search for RSDU.."></td>
+                            <td><input type="text" id="orderSearch9" onkeyup="OrdSearch(9)" placeholder="Search for analyst cost.."></td>
+                            <td><input type="text" id="orderSearch10" onkeyup="OrdSearch(10)" placeholder="Search for XIC.."></td>
+                            <td><input type="text" id="orderSearch11" onkeyup="OrdSearch(11)" placeholder="Search for CSI cost.."></td>
+                            <td><input type="text" id="orderSearch12" onkeyup="OrdSearch(12)" placeholder="Search for resale price.."></td>
+                            <td><input type="text" id="orderSearch13" onkeyup="OrdSearch(13)" placeholder="Search for buyout evolve.."></td>
+                            <td><input type="text" id="orderSearch14" onkeyup="OrdSearch(14)" placeholder="Search for funding amount.."></td>
+                            <td><input type="text" id="orderSearch15" onkeyup="OrdSearch(15)" placeholder="Search for revenue.."></td>
+                            <td><input type="text" id="orderSearch16" onkeyup="OrdSearch(16)" placeholder="Search for gross profit.."></td>
+                            <td><input type="text" id="orderSearch17" onkeyup="OrdSearch(17)" placeholder="Search for profit margin.."></td>
+                            <td><input type="text" id="orderSearch18" onkeyup="OrdSearch(18)" placeholder="Search for GP bump.."></td>
+                            <td><input type="text" id="orderSearch19" onkeyup="OrdSearch(19)" placeholder="Search for cust payment.."></td>
+                            <td><input type="text" id="orderSearch20" onkeyup="OrdSearch(20)" placeholder="Search for invoice #.."></td>
+
+
+                        </tr>
+                    <tbody id = "ordertable_body" onkeyup="editOrderTable()">
+
+                    </tbody>
+                     <tfoot>
+                        <tr>
+                            <td>Total:</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="equipCell"></td>
+                            <td id="rsduCell"></td>
+                            <td id="analystCell"></td>
+                            <td id="XICCell"></td>
+                            <td id="CSIcostCell"></td>
+                            <td id="resaleCell"></td>
+                            <td id="buyoutCell"></td>
+                            <td id="fundingCell"></td>
+                            <td id="performanceCell"></td>
+                            <td id="grossPCell"></td>
+                            <td></td>
+                            <td ></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </tfoot>
+
+                </table>
+            </div>
+
+
+
+    <!--Call testing Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDri1cBc4GVAHQvqE28aQbNVmtCg8GaJ-Y",
+        authDomain: "sample-4015c.firebaseapp.com",
+        databaseURL: "https://sample-4015c.firebaseio.com",
+        projectId: "sample-4015c",
+        storageBucket: "sample-4015c.appspot.com",
+        messagingSenderId: "901259745166"
+      };
+      firebase.initializeApp(config);
+    </script>
+ 
+        <script>
+            firebase.auth().onAuthStateChanged(function(user) {
+                document.getElementById('authEmail').innerHTML = "Hello " + user.email;
+            });
+        </script>
+        <script src = "JS/index.js"></script>
+        <script src = "JS/OrderView.js"></script>
+        <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    
+
+        
+    </body>
+    <footer>
+      <p class="home-logo"></p>
+    </footer>
+</html>

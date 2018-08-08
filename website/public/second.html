@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+    <head>
+        <!-- Required meta tags for BootStrap-->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+        <title>Inventory List</title>
+
+        <link rel="stylesheet" type="text/css" href="CSS/index.css">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="icon" href="img/icon.png">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+             /*only the body of the table will be highlighted when hover*/
+            tr:hover {background-color:#f5f5f5;}
+            /*the even table is different color*/
+            tr:nth-child(even) {background-color: #f2f2f2;}
+            /*The header background is green and text is white*/
+            thead {
+                background-color: #4CAF50;
+                color: black;
+            }
+        </style>
+    </head>
+
+    <body>
+
+
+        <div class="mainDiv" align "left">
+        <h1>All Inventory</h1>
+    <div id="nav">
+        <ul>
+            <li><a href="inventoryInput.html"> Insert Inventory</a></li>
+            <li><a href="second.html">Inventory</a></li>
+            <li><a href="insertOrder.html">Insert Order</a></li>
+            <li><a href="Order.html">Order</a></li>
+            <li><a href="transfer.html">Transfer Data</a></li>
+            <button id="logoutButton" onClick="logout()">Logout</button>
+        </ul>
+    </div>
+            <!---->
+    <div id="nav2">
+        <ul>
+            <li><a href="insertOrder.html">Insert Order</a></li>
+            <li><a href="Order.html">Order</a></li>
+            <button id="logoutButton" onClick="logout()">Logout</button>
+        </ul>
+    </div>
+
+
+            <p id="authEmail"></p>
+
+
+        <table id="InventoryTable">
+            <col width = "100">
+            <col width = "100">
+            <col width = "100">
+            <col width = "100">
+            <col width = "100">
+            <col width = "100">
+            <col width = "100">
+            <col width = "100">
+            <col width = "100">
+            <col width = "100">
+            <col width = "100">
+
+
+            <thead>
+                <tr>
+                    <th onClick="sortTable(0)">Order Rep</th>
+                    <th onClick="sortTable(1)">Selling Rep</th>
+                    <th onClick="sortTable(2)">Customer</th>
+                    <th onClick="sortTable(3)">Location</th>
+                    <th onClick="sortTable(4)">Unit</th>
+                    <th onClick="sortTable(5)">S/N</th>
+                    <th onClick="sortTable(6)">Purchase Cost</th>
+                    <th onClick="sortTable(7)">Estimate Shipping/Return Date</th>
+                    <th onClick="sortTable(8)">Actual Received Date</th>
+                    <th onClick="sortTable(9)">Shipping From</th>
+                    <th onClick="sortTable(10)">Shipping Destination</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td><input type="text" id="myInput0" onkeyup="InvSearch(0)" placeholder="Search for names.."></td>
+                    <td><input type="text" id="myInput1" onkeyup="InvSearch(1)" placeholder="Search for names.."></td>
+                    <td><input type="text" id="myInput2" onkeyup="InvSearch(2)" placeholder="Search for customer.."></td>
+                    <td><input type="text" id="myInput3" onkeyup="InvSearch(3)" placeholder="Search for location"></td>
+                    <td><input type="text" id="myInput4" onkeyup="InvSearch(4)" placeholder="Search for unit.."></td>
+                    <td><input type="text" id="myInput5" onkeyup="InvSearch(5)" placeholder="Search for S/N.."></td>
+                    <td><input type="text" id="myInput6" onkeyup="InvSearch(6)" placeholder="Search for purchase cost.."></td>
+                    <td><input type="text" id="myInput7" onkeyup="InvSearch(7)" placeholder="Search for Estimate Dates.."></td>
+                    <td><input type="text" id="myInput8" onkeyup="InvSearch(8)" placeholder="Search for Actual Date.."></td>
+                    <td><input type="text" id="myInput9" onkeyup="InvSearch(9)" placeholder="Search for Shipping From.."></td>
+                    <td><input type="text" id="myInput10" onkeyup="InvSearch(10)" placeholder="Search for Shipping Destination.."></td>
+                </tr>
+            <tbody id = "table_body" class = "table" onkeyup="editInvTable()">
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total:</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td id ="Cost"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            </tfoot>
+
+        </table>
+
+        </div>
+
+
+     <!-- Call testing Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDri1cBc4GVAHQvqE28aQbNVmtCg8GaJ-Y",
+        authDomain: "sample-4015c.firebaseapp.com",
+        databaseURL: "https://sample-4015c.firebaseio.com",
+        projectId: "sample-4015c",
+        storageBucket: "sample-4015c.appspot.com",
+        messagingSenderId: "901259745166"
+      };
+      firebase.initializeApp(config);
+     </script>
+        
+       <script>
+            firebase.auth().onAuthStateChanged(function(user) {
+                document.getElementById('authEmail').innerHTML = "Hello " + user.email;
+            });
+        </script>
+        
+
+        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+        
+        <script src = "JS/index.js"></script>
+        <script src = "JS/InventoryView.js"></script>
+        <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    
+        
+    </body>
+     <footer>
+      <p class="home-logo"></p>
+    </footer>
+</html>

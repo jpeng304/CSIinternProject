@@ -1,0 +1,269 @@
+var secret = 'dKh6dkKKff9Ds9JLDx8LxRq0Wo4u2DrDlymecU6E';
+
+function doGet(e) {
+  var jsE = JSON.stringify(e);
+  Logger.log(jsE[15]);
+  //This will check which button will be pressed in the html file, right now it is not the best form
+  //but will change once better solution is found
+  if(jsE[15] =="F"){
+    Logger.log("F to D");
+    getOrderfromFirebase(e);
+    getInvfromFirebase(e);
+  }else if(jsE[15] == "D"){
+    Logger.log("D to F");
+    startSync();
+    InventorySheetSync();
+  }
+  
+}
+
+function doPost(e){
+  var jsE = JSON.stringify(e);
+  Logger.log(jsE[15]);
+  if(jsE[15] =="F"){
+    Logger.log("F to D");
+    getOrderfromFirebase(e);
+    getInvfromFirebase(e);
+  }else if(jsE[15] == "D"){
+    Logger.log("D to F");
+    startSync();
+    InventorySheetSync();
+  }
+}
+
+function getOrderfromFirebase(e){
+   var j = 2; // this is the row number so start at 1 if there is no data
+ 
+  var activeSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("ORDERS");
+  //instead of getActiveSheet(), use getSheetByName("Sheet1") for specific sheet. Also this will not work if the sheet wasn't there already so need to figure out how to create a new sheet 
+  //when the sheet name isn't there
+  
+  var firebaseUrl = "https://sample-4015c.firebaseio.com/Order";
+  var base = FirebaseApp.getDatabaseByUrl(firebaseUrl);
+  var data = base.getData();
+  
+  for(var i in data) {
+    
+    Logger.log(data[i].Rep);
+   
+    activeSheet.getRange("A"+j).setValue(data[i].Rep);
+    activeSheet.getRange("B"+j).setValue(data[i].DateOrder);
+    activeSheet.getRange("C"+j).setValue(data[i].Product);
+    activeSheet.getRange("D"+j).setValue(data[i].SerialNumber);
+    activeSheet.getRange("E"+j).setValue(data[i].CustomerName);
+    activeSheet.getRange("F"+j).setValue(data[i].ZipCode);
+    activeSheet.getRange("G"+j).setValue(data[i].Territory);
+    activeSheet.getRange("H"+j).setValue(data[i].EquipmentCost);
+    activeSheet.getRange("I"+j).setValue(data[i].RSDU);
+    activeSheet.getRange("J"+j).setValue(data[i].AnalystCost);
+    activeSheet.getRange("K"+j).setValue(data[i].XeroxInvoiceCost);
+    activeSheet.getRange("L"+j).setValue(data[i].CSICost);
+    activeSheet.getRange("M"+j).setValue(data[i].ResalePrice);
+    activeSheet.getRange("N"+j).setValue(data[i].BuyoutEvolve);
+    activeSheet.getRange("O"+j).setValue(data[i].FundingAmount);
+    activeSheet.getRange("P"+j).setValue(data[i].Performance);
+    activeSheet.getRange("Q"+j).setValue(data[i].GrossProfit);
+    Logger.log(data[i].Performance);
+    activeSheet.getRange("R"+j).setValue(data[i].ProfitMargin);
+    activeSheet.getRange("S"+j).setValue(data[i].GPBump);
+    activeSheet.getRange("T"+j).setValue(data[i].CustomerPayment);
+    activeSheet.getRange("U"+j).setValue(data[i].InvoiceNumber);   
+    
+    
+    ++j;
+  }
+}
+
+function getInvfromFirebase(e){
+   var j = 2; // this is the row number so start at 1 if there is no data
+ 
+  var invSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Inventory");
+  //instead of getActiveSheet(), use getSheetByName("Sheet1") for specific sheet. Also this will not work if the sheet wasn't there already so need to figure out how to create a new sheet 
+  //when the sheet name isn't there
+  
+  var firebaseInvUrl = "https://sample-4015c.firebaseio.com/Inventory";
+  var invbase = FirebaseApp.getDatabaseByUrl(firebaseInvUrl);
+  var data = invbase.getData();
+  
+  for(var m in data) {
+    
+    Logger.log(data[m].Customer);
+   
+     
+    invSheet.getRange("A"+j).setValue(data[m].OrderRep);
+    invSheet.getRange("B"+j).setValue(data[m].SellingRep);
+    invSheet.getRange("C"+j).setValue(data[m].Customer);
+    invSheet.getRange("D"+j).setValue(data[m].Unit);
+    invSheet.getRange("E"+j).setValue(data[m].SN);
+    invSheet.getRange("F"+j).setValue(data[m].Location);    
+    invSheet.getRange("G"+j).setValue(data[m].EstimateShipping);
+    invSheet.getRange("H"+j).setValue(data[m].ActualReceiveDate);
+    invSheet.getRange("I"+j).setValue(data[m].PurchaseCost);
+    
+    
+    ++j;
+  }
+  return ContentService.createTextOutput("hello world!");
+  
+  
+}
+
+
+
+
+
+//Google Sheet for Order to Firebase
+
+function getFirebaseUrl(jsonPath) {
+  /*
+  We then make a URL builder
+  This takes in a path, and
+  returns a URL that updates the data in that path
+  */  
+  return 'https://sample-4015c.firebaseio.com/' + jsonPath + '.json?auth=' + secret
+}
+
+function syncMasterSheet(excelData) {
+  /*
+  We make a PUT (update) request,
+  and send a JSON payload
+  More info on the REST API here : https://firebase.google.com/docs/database/rest/start
+  */
+  var options = {
+    method: 'put',
+    contentType: 'application/json',
+    payload: JSON.stringify(excelData)
+  };
+  var fireBaseUrl = getFirebaseUrl('Order')
+
+  /*
+  We use the UrlFetchApp google scripts module
+  More info on this here : https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app
+  */
+  UrlFetchApp.fetch(fireBaseUrl, options);
+}
+
+
+
+
+//Get the data from Google Sheet to Firebase
+function startSync() {
+  
+  //Get the currently active sheet
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("ORDERS");
+  //Get the number of rows and columns which contain some content
+  var [rows, columns] = [sheet.getLastRow(), sheet.getLastColumn()];
+  //Get the data contained in those rows and columns as a 2 dimensional array
+  var data = sheet.getRange(1, 1, rows, columns).getValues();
+  var dataObject = {};
+//Loop through the rows creating a new object for each one
+  for(var i=1; i < data.length; i++) {
+    var dataRow = data[i];
+    // in cell A I have my item name and in B i have my item code
+    var rep = dataRow[0];
+    var dateO = dataRow[1];
+    var prod = dataRow[2];
+    var serial = dataRow[3];
+    var cust = dataRow[4];
+    
+    rep = rep.toString().replace("/", "|");
+    prod = prod.toString().replace("/", "|");
+    
+    Logger.log(rep + " " + prod + " " + serial)
+    // we then create our first property on our data object dataObject.code-name : { }
+        dataObject[rep + '-' + serial + "-" + prod ] = {
+      Rep:rep,
+      DateOrder:dateO,
+      Product: prod,
+      SerialNumber:serial,
+      CustomerName: dataRow[4],
+      ZipCode: dataRow[5],
+      Territory:dataRow[6],
+      EquipmentCost:dataRow[7],
+      RSDU:dataRow[8],
+      AnalystCost:dataRow[9],
+      XeroxInvoiceCost:dataRow[10],
+      CSICost:dataRow[11],
+      ResalePrice:dataRow[12],
+      BuyoutEvolve:dataRow[13],
+      FundingAmount:dataRow[14],
+      Performance:dataRow[15],
+      GrossProfit:dataRow[16],
+      ProfitMargin:dataRow[17],
+      GPBump:dataRow[18],
+      CustomerPayment:dataRow[19],
+      InvoiceNumber:dataRow[20]
+      
+    };
+
+  //Use the syncMasterSheet function defined before to push this data to the "masterSheet" key in the firebase database
+  syncMasterSheet(dataObject);
+    
+   }
+}
+
+
+
+//Google Inventory Sheet to Firebase
+
+
+function syncInvSheet(excelData) {
+  /*
+  We make a PUT (update) request,
+  and send a JSON payload
+  More info on the REST API here : https://firebase.google.com/docs/database/rest/start
+  */
+  var options = {
+    method: 'put',
+    contentType: 'application/json',
+    payload: JSON.stringify(excelData)
+  };
+  var fireBaseUrl = getFirebaseUrl('Inventory')
+
+  /*
+  We use the UrlFetchApp google scripts module
+  More info on this here : https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app
+  */
+  UrlFetchApp.fetch(fireBaseUrl, options);
+}
+
+function InventorySheetSync(){
+    //Get the currently active sheet
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Inventory");
+  //Get the number of rows and columns which contain some content
+  var [rows, columns] = [sheet.getLastRow(), sheet.getLastColumn()];
+  //Get the data contained in those rows and columns as a 2 dimensional array
+  var data = sheet.getRange(1, 1, rows, columns).getValues();
+  var dataObject = {};
+//Loop through the rows creating a new object for each one
+for(var i=1; i < data.length; i++) {
+    var dataRow = data[i];
+    // in cell A I have my item name and in B i have my item code
+    var oRep = dataRow[0];
+    var sellRep = dataRow[1];
+    var cust = dataRow[2];
+    var unit = dataRow[3];
+    var sn = dataRow[4];
+    var loc = dataRow[5];
+    var estShip = dataRow[6];
+    var actDate = dataRow[7];
+    var purchaseCost = dataRow[8];
+    Logger.log(oRep + " " + dataRow[1] + " " + dataRow[2]+ " " + dataRow[3]+ " " + dataRow[4]+ " " + dataRow[5]+ " " + dataRow[6]+ " " + dataRow[7]+ " " + dataRow[8])
+    // we then create our first property on our data object dataObject.code-name : { }
+    dataObject[oRep + '-' + sn] = {
+      OrderRep: oRep,
+      SellingRep: sellRep,
+      Customer: cust,
+      Unit: unit,
+      SN: sn,
+      Location: loc,
+      EstimateShipping:estShip,
+      ActualReceiveDate:actDate,
+      PurchaseCost: purchaseCost
+    };
+    //Use the syncMasterSheet function defined before to push this data to the "masterSheet" key in the firebase database
+    syncInvSheet(dataObject);
+    
+  }  
+}
+

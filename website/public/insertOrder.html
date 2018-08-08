@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+        <!-- Required meta tags for BootStrap-->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+        
+        <title>Order Insert</title>
+        <link rel="stylesheet" type="text/css" href="CSS/index.css">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="icon" href="img/icon.png">
+
+    </head>
+    <body>
+      <div class="mainDiv" align "left">
+        <h1 align = "left">Insert new Order Information</h1>
+    <div id="nav">
+        <ul>
+            <li><a href="inventoryInput.html"> Insert Inventory</a></li>
+            <li><a href="second.html">Inventory</a></li>
+            <li><a href="insertOrder.html">Insert Order</a></li>
+            <li><a href="Order.html">Order</a></li>
+            <li><a href="transfer.html">Transfer Data</a></li>
+            <button id="logoutButton" onClick="logout()">Logout</button>
+        </ul>
+    </div>
+          <!---->
+    <div id="nav2">
+        <ul>
+            <li><a href="insertOrder.html">Insert Order</a></li>
+            <li><a href="Order.html">Order</a></li>
+            <button id="logoutButton" onClick="logout()">Logout</button>
+        </ul>
+    </div>
+    <p id="authEmail"></p>
+   
+    <fieldset>
+        <legend>Order Input</legend>
+
+        Rep:<label id="userEmails">Email</label><br><br>
+        Date Order:<input id= "dateOr" type="date"><br><br>
+        Product:<input id= "product" type="text"><br><br>
+        Serial #:<input id="serial" type="text"><br><br>
+        Customer Name:<input id= "cName" type="text"><br><br>
+        Zip Code:<input id= "zip" type="text"><br><br>
+
+        Territory:
+        <select id="terr">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br><br>
+
+
+        Equipment Cost:  $<input id="equipC" type="text"><br><br>
+        RSDU:  $<input id= "rsdu" type="text"><br><br>
+        Analyst Cost:  $<input id="analystC" type="text" ><br><br>
+        Xerox Invoice Cost:  $<input id= "XIC" type="text"><br><br>
+        CSI Cost:  $<input id= "CSIC" type="text"><br><br>
+        Resale Price:  $<input id="resale" type="text"><br><br>
+        Buyout Evolve:  $<input id= "buyout" type="text"><br><br>
+        Funding Amount:  $<input id= "funding" type="text"><br><br>
+        Performance(Revenue):  $<input id="revenue" type="text" ><br><br>
+        Gross Profit:  $<input id="grossP" type="text"><br><br>
+        Profit Margin:  <input id= "profitMargin" type="text"> %<br><br>
+        GP Bump:  <input id="gpbump" type = "text"> %<br><br>
+        Customer Payment:  <input id="cPayment" type = "text"><br><br>
+        Invoice#:  <input id="invoice" type = "text"><br><br>
+
+        <button id="submitOrderBtn" onclick="orderIns()">Submit</button>
+        <br>
+    </fieldset>
+    </div>
+
+     <!--Call testing Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDri1cBc4GVAHQvqE28aQbNVmtCg8GaJ-Y",
+        authDomain: "sample-4015c.firebaseapp.com",
+        databaseURL: "https://sample-4015c.firebaseio.com",
+        projectId: "sample-4015c",
+        storageBucket: "sample-4015c.appspot.com",
+        messagingSenderId: "901259745166"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+    <!--Set the email as Rep-->
+    <script>
+        firebase.auth().onAuthStateChanged(function(user) {
+            document.getElementById('userEmails').innerHTML = user.email;
+        });
+    </script>
+    <script>
+        firebase.auth().onAuthStateChanged(function(user) {
+            document.getElementById('authEmail').innerHTML = "Hello " + user.email;
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+    <script src = "JS/index.js"></script>
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    
+    </body>
+    <footer>
+      <p class="home-logo"></p>
+    </footer>
+
+</htm>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+     <head>
+        <title>CSI</title>
+        <link rel="stylesheet" type="text/css" href="CSS/index.css">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+        <link rel="icon" href="img/icon.png">
+       <style>
+           .nav{
+            border-top:1px solid
+           }
+       </style>
+    </head>
+    <body>
+    <div class="mainDiv" align "left">
+    <div id="nav">
+        <ul>
+            <li><a href="inventoryInput.html"> Insert Inventory</a></li>
+            <li><a href="second.html">Inventory</a></li>
+            <li><a href="insertOrder.html">Insert Order</a></li>
+            <li><a href="Order.html">Order</a></li>
+            <li><a href="transfer.html">Transfer Data</a></li>
+            <button id="logoutButton" onClick="logout()">Logout</button>
+        </ul>
+    </div>
+            <!---->
+    <div id="nav2">
+        <ul>
+            <li><a href="insertOrder.html">Insert Order</a></li>
+            <li><a href="Order.html">Order</a></li>
+            <button id="logoutButton" onClick="logout()">Logout</button>
+        </ul>
+    </div>
+
+    </div>
+
+<script type="text/javascript">var submitted=false;</script>
+<iframe name="hidden_iframe" id="hidden_iframe"
+style="display:none;" onload="if(submitted)
+{window.location='https://sample-4015c.firebaseapp.com/transfer.html';}"></iframe>
+<!--change the window location to real website-->
+
+<!--To let Firebase transfer data to Google Sheet, need to go to the script of the google sheet and add libraries for FirebaseAPP (MYeP8ZEEt1ylVDxS7uyg9plDOcoke7-2l)
+and pick version 11 public version. Also need the rule in firebase to be public for transfer data between each other to work-->
+
+        
+<!--In order transfer data from firebase to Google sheet, firebase rule need to changed to true for both read and write or else
+    it will not write from firebase to Google sheet. Transfer from google sheet to firebase will be allowed when firebase rule
+    read/write is "auth!=null"-->
+<form action="https://script.google.com/macros/s/AKfycbzTNMrveIjSCuUsAOnoaJpy5UrYQW05WiSy199Qlee0JKu1u8jv/exec" method="post"
+      target="hidden_iframe" onsubmit="submitted=true;">
+    <input type="submit" name="FirebaseToOrder" value="Transfer Data from Firebase Database to Google Sheet">
+    <input type="submit" name="DrivetoFirebase" value="Transfer Data from Google Sheet to Firebase">
+</form>
+
+
+<br><br>
+<a href="mailto:jpeng304@hotmail.com"> Email Jonathan</a>
+
+     <!--Call testing Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDri1cBc4GVAHQvqE28aQbNVmtCg8GaJ-Y",
+        authDomain: "sample-4015c.firebaseapp.com",
+        databaseURL: "https://sample-4015c.firebaseio.com",
+        projectId: "sample-4015c",
+        storageBucket: "sample-4015c.appspot.com",
+        messagingSenderId: "901259745166"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+        
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script src = "JS/index.js"></script>
+</body>
+    <footer>
+      <p class="home-logo"></p>
+    </footer>
+</html>

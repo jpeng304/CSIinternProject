@@ -1,0 +1,198 @@
+html{
+    overflow-y: scroll;
+    margin-left: calc(100vw - 100%);
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 14px;
+}
+
+body{
+    margin: auto;
+    margin-top: 25px;
+    width: 95%;
+}
+
+h1{
+    display: inline;
+    border-bottom: 2px solid black;
+}
+
+label {
+    width:180px;
+    clear:left;
+    text-align:right;
+    padding-right:10px;
+}
+
+table{
+    display: block;
+    table-layout: fixed;
+    margin: auto;
+    width: 100%;
+    overflow-x: scroll;
+    height: 90%;
+}
+
+th:hover{
+    cursor: pointer;
+}
+
+#logoutButton{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: lightblue;
+  display: table;   /* Allow the centering to work */
+  margin: 0 auto;
+  border: none;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: underline;
+  font-family: Times;
+  font-size: 16px;
+  float: left;
+}
+
+#logoutButton:hover{
+    background-color: lightgreen;
+    cursor: pointer;
+}
+/*
+#nav{
+    float: right;
+    width: 610px;
+}*/
+
+#nav, #nav2{
+    float: right;
+    width: 610px;
+    display: none;
+}
+
+#nav2{
+    width: 275px;
+}
+
+html {
+  margin-left: calc(100vw - 100%);
+}
+
+#use_para{
+    margin-top: 10px;
+    display: inline;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: lightblue;
+    display: table;   /* Allow the centering to work */
+	  margin: 0 auto;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: underline;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: lightgreen;
+}
+
+
+.main-div{
+
+    width:25%;
+    margin: 0px auto;
+    margin-top: 150px;
+    padding: 20px;
+
+}
+
+.main-div h1{
+    display: block;
+    text-align: center;
+    font-size: 40px;
+    border: none;
+}
+
+
+.main-div input{
+    display:block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    padding: 15px;
+    outline: none;
+    width: 100%;
+    margin-bottom: 20px;
+
+}
+
+.main-div button{
+    background: #5d8ffc;
+    color: #fff;
+    border: 0px;
+    border-radius: 5px;
+    padding: 15px;
+    display: block;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.main-div button:hover{
+    background: #fff;
+    color: #5d8ffc;
+    border: 1px solid #5d8ffc;
+}
+
+.home-logo{
+    padding: 100px;
+    background-image: url("../img/homeLogo.png");
+    background-position: center;
+    align-items: center;
+    background-repeat: no-repeat;
+}
+
+.indexRadio{
+    float: left;
+    width: 40%;
+    margin-top: -16.5px;
+    margin-bottom: 10px;
+}
+
+fieldset{
+    border-color: #f44242;
+    background-color: #d5dbe5;
+    margin-top: 20px;
+}
+
+fieldset legend{
+    border: 2px solid #f44242;
+    background-color: white;
+
+}
+
+footer{
+    text-align: center;
+}
+
+input[type=radio],
+input.radio {
+
+  clear: none;
+  margin: 0 auto;
+
+}

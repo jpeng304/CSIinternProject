@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+   <head>
+        <!-- Required meta tags -->
+       <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+       <!-- Bootstrap CSS -->
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+       
+        <title>CSI</title>
+        <link rel="stylesheet" type="text/css" href="CSS/index.css">
+       <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+       <link rel="icon" href="img/icon.png">
+       <style>
+           .nav{
+            border-top:1px solid
+           }
+       </style>
+    </head>
+    <body>
+    <div id="login_div" class="main-div">
+        <h1>User Login</h1>
+        <input type="email" id="email_field" placeholder="Email..."/>
+        <input type="password" id="password_field" placeholder="Password...."/>
+
+
+        <input type="radio" style="vertical-align: middle" id="asIT"
+         name="user_type" value="IT">
+        <label class="indexRadio" for="asIT">IT</label>
+
+        <input type="radio" style="vertical-align: middle" id="asRep"
+         name="user_type" value="Rep"/>
+        <label class="indexRadio" for="asRep">Rep</label>
+        <button onClick="login()">Login to Account</button>
+
+        <br>
+        <button onClick="signUp()">Register Account</button>
+        <!---
+        <button onclick="location.href = 'register.html';" id="myButton" class="float-left submit-button" >Register New User</button>--->
+        <p class="home-logo"></p>
+    </div>
+
+
+    <!--Call testingFirebase-->
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDri1cBc4GVAHQvqE28aQbNVmtCg8GaJ-Y",
+        authDomain: "sample-4015c.firebaseapp.com",
+        databaseURL: "https://sample-4015c.firebaseio.com",
+        projectId: "sample-4015c",
+        storageBucket: "sample-4015c.appspot.com",
+        messagingSenderId: "901259745166"
+      };
+      firebase.initializeApp(config);
+    </script>
+        
+
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src = "JS/index.js"></script>
+        
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+
+    
+
+    </body>
+    <footer>
+      <p>Xerox | Copy Solutions Inc. 2018</p>
+    </footer>
+</html>
